@@ -52,6 +52,91 @@ function getTodayPhrase() {
   return ENGLISH_PHRASES[dayOfYear % ENGLISH_PHRASES.length];
 }
 
+// --- Successor's Ritual ---
+const SUCCESSOR_RITUALS = [
+  {
+    person: "Benjamin Franklin",
+    era: "1706–1790",
+    habitTitle: "Morning Reflection",
+    description: "毎朝5時に起床し、「今日、私は何の善いことをするか？」と自問する内省の時間を設けた。夜は「今日、私はどんな善いことをしたか？」で締めくくった。",
+    action: "手帳を開き「今日、私は何の善いことをするか？」を1文で書き出してから1日を始める。",
+  },
+  {
+    person: "Warren Buffett",
+    era: "1930–",
+    habitTitle: "The 500-Page Rule",
+    description: "1日の80%を読書と思考に充て、500ページ以上を読み続けた。「知識は複利で積み上がる。誰もその努力を奪えない」と語った。",
+    action: "今日のスキマ時間を使い、本・記事・レポートを30分読み、1つの洞察をメモする。",
+  },
+  {
+    person: "Steve Jobs",
+    era: "1955–2011",
+    habitTitle: "Radical Simplification",
+    description: "毎朝鏡の前で「今日が人生最後の日だとしたら、今日やることをやりたいか？」と自問した。Noが続く日は何かを変えるサインとした。",
+    action: "今日のタスクリストを見直し、最も本質的な1つに絞り込んで深く集中する。",
+  },
+  {
+    person: "Elon Musk",
+    era: "1971–",
+    habitTitle: "Time Boxing",
+    description: "1日を5分単位のブロックに分割し、あらゆる活動に時間的な境界を設けることで集中力を最大化した。",
+    action: "明日のスケジュールを今夜のうちに30分単位でブロックし、「深い集中」の時間を確保する。",
+  },
+  {
+    person: "Tim Cook",
+    era: "1960–",
+    habitTitle: "4AM Solitude",
+    description: "毎朝4時に起床し、メールチェックの前に静寂の時間を確保する。世界が動き出す前に思考を整えることが優位性の源泉と語った。",
+    action: "明朝は普段より1時間早く起きて、静かな時間に今月の最優先目標を1つ再確認する。",
+  },
+  {
+    person: "Oprah Winfrey",
+    era: "1954–",
+    habitTitle: "Gratitude Practice",
+    description: "20年以上、毎晩寝る前に感謝することを5つノートに書き続けた。「感謝は豊かさへの入り口だ」と語り、この習慣が人生を変えたと言う。",
+    action: "今夜、感謝すること5つをノートに書き出し、それぞれの理由を1行添える。",
+  },
+  {
+    person: "Bill Gates",
+    era: "1955–",
+    habitTitle: "Think Week",
+    description: "年2回、電子機器を遠ざけた森の中の小屋で「考える週」を過ごし、未来の戦略と深い読書だけに集中した。",
+    action: "今週中に2時間、スマホを手放して未来について考える「思考ブロック」を日程に入れる。",
+  },
+  {
+    person: "Marcus Aurelius",
+    era: "121–180",
+    habitTitle: "Evening Stoic Review",
+    description: "毎晩その日の行動を哲学的に振り返り、自省録に記した。皇帝でありながら「自分を超える試みを怠るな」と自戒し続けた。",
+    action: "就寝前に「今日の行動は自分の理想と一致していたか？」を3行で書いて眠りにつく。",
+  },
+  {
+    person: "Jeff Bezos",
+    era: "1964–",
+    habitTitle: "8 Hours of Sleep",
+    description: "「十分な睡眠は意思決定の質に直結する」と公言し、どれだけ忙しくても8時間の睡眠を最優先した。疲れた脳は悪い判断を下すと言った。",
+    action: "今夜の就寝時刻を30分早め、明日の重要な意思決定に備えてコンディションを整える。",
+  },
+  {
+    person: "Miyamoto Musashi",
+    era: "1584–1645",
+    habitTitle: "The Way of Mastery",
+    description: "五輪書に「千日の稽古を鍛とし、万日の稽古を錬とす」と記し、剣の道を通じて人生そのものを磨き続けた。",
+    action: "今日たった1時間、最も磨きたいスキルだけに集中して取り組む。余計なことはしない。",
+  },
+];
+
+const SPARKLE_CHARS = ["✦", "✧", "★", "✵", "·", "✶"];
+
+function getTodayRitual() {
+  const today = new Date();
+  const dayOfYear = Math.floor(
+    (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) /
+      (1000 * 60 * 60 * 24)
+  );
+  return SUCCESSOR_RITUALS[dayOfYear % SUCCESSOR_RITUALS.length];
+}
+
 // --- ANA Mile Section ---
 const MILE_TARGET = 50000;
 const CURRENT_MILES = 12450;
@@ -201,7 +286,7 @@ export default function Dashboard() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                   <div>
                     <p className="text-white/30 text-[9px] tracking-[0.2em] mb-1">PASSENGER</p>
-                    <p className="text-white text-sm font-medium tracking-wider">NAMURO TOMOKAZU</p>
+                    <p className="text-white text-sm font-medium tracking-wider">TOMO</p>
                   </div>
                   <div>
                     <p className="text-white/30 text-[9px] tracking-[0.2em] mb-1">DATE</p>
@@ -317,6 +402,9 @@ export default function Dashboard() {
               {todayPhrase.translation}
             </p>
           </Card>
+
+          {/* ===== 5. Successor's Ritual ===== */}
+          <SuccessorRitual />
         </div>
 
         {/* Footer */}
@@ -354,5 +442,131 @@ function CardLabel({ children }: { children: React.ReactNode }) {
     <p className="text-[10px] text-gold-400 tracking-[0.2em] font-medium mb-4 uppercase">
       {children}
     </p>
+  );
+}
+
+// --- Successor's Ritual Component ---
+function SuccessorRitual() {
+  const ritual = getTodayRitual();
+  const [taken, setTaken] = useState(false);
+  const [sparkles, setSparkles] = useState<
+    Array<{
+      id: number;
+      tx: number;
+      ty: number;
+      char: string;
+      colorClass: string;
+      delay: number;
+      size: number;
+    }>
+  >([]);
+
+  function handleAction() {
+    if (taken) return;
+    setTaken(true);
+
+    const newSparkles = Array.from({ length: 20 }, (_, i) => {
+      const angle = (i / 20) * Math.PI * 2 + Math.random() * 0.3;
+      const distance = 55 + Math.random() * 75;
+      return {
+        id: Date.now() + i,
+        tx: Math.cos(angle) * distance,
+        ty: Math.sin(angle) * distance,
+        char: SPARKLE_CHARS[Math.floor(Math.random() * SPARKLE_CHARS.length)],
+        colorClass: ["text-gold-300", "text-gold-400", "text-white"][
+          Math.floor(Math.random() * 3)
+        ],
+        delay: Math.random() * 0.18,
+        size: 9 + Math.floor(Math.random() * 10),
+      };
+    });
+
+    setSparkles(newSparkles);
+    setTimeout(() => setSparkles([]), 1200);
+  }
+
+  return (
+    <Card className="md:col-span-2">
+      {/* Section header */}
+      <div className="flex items-center justify-between mb-6">
+        <CardLabel>SUCCESSOR&apos;S RITUAL</CardLabel>
+        <span className="text-[10px] text-navy-600 tracking-[0.15em]">
+          {new Date().toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
+      </div>
+
+      {/* Person badge */}
+      <div className="flex items-center gap-4 mb-5 p-4 bg-navy-800/80 rounded-xl border border-gold-500/20">
+        <div className="w-1 h-14 bg-gradient-to-b from-gold-400 via-gold-400/60 to-transparent rounded-full flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-gold-300 text-base font-medium tracking-wider">
+            {ritual.person}
+          </p>
+          <p className="text-navy-600 text-[10px] tracking-[0.25em] mt-0.5 uppercase">
+            {ritual.era}
+          </p>
+        </div>
+        <div className="text-right">
+          <p className="text-white/70 text-sm font-light tracking-wider">
+            {ritual.habitTitle}
+          </p>
+        </div>
+      </div>
+
+      {/* Description */}
+      <p className="text-sm text-white/45 font-light leading-relaxed italic mb-5 px-1">
+        {ritual.description}
+      </p>
+
+      {/* Divider */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gold-500/25 to-transparent mb-5" />
+
+      {/* Today's action */}
+      <div className="mb-7">
+        <p className="text-[10px] text-gold-400 tracking-[0.2em] mb-2 uppercase">
+          Today&apos;s Action
+        </p>
+        <p className="text-sm text-white/80 font-light leading-relaxed">
+          {ritual.action}
+        </p>
+      </div>
+
+      {/* Button with sparkle effect */}
+      <div className="relative flex justify-center overflow-visible">
+        {sparkles.map((s) => (
+          <span
+            key={s.id}
+            className={`sparkle-particle ${s.colorClass}`}
+            style={
+              {
+                fontSize: `${s.size}px`,
+                animationDelay: `${s.delay}s`,
+                "--tx": `${s.tx}px`,
+                "--ty": `${s.ty}px`,
+              } as React.CSSProperties
+            }
+          >
+            {s.char}
+          </span>
+        ))}
+        <button
+          onClick={handleAction}
+          disabled={taken}
+          className={`
+            px-8 py-3.5 rounded-xl text-sm font-medium tracking-[0.12em] uppercase transition-all duration-500
+            ${
+              taken
+                ? "bg-gold-500/10 text-gold-400 border border-gold-500/30 cursor-default"
+                : "bg-gradient-to-r from-gold-500 to-gold-300 text-navy-900 hover:shadow-lg hover:shadow-gold-400/25 hover:scale-[1.02] active:scale-[0.98]"
+            }
+          `}
+        >
+          {taken ? "✦  Ritual Committed" : "I'll take this action"}
+        </button>
+      </div>
+    </Card>
   );
 }
